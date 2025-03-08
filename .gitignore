@@ -1,0 +1,6 @@
+.idea/
+.vs/
+bin/
+obj/
+runtimes/
+SDL3-CS.sln.DotSettings.user
