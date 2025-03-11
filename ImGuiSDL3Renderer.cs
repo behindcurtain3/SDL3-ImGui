@@ -185,7 +185,7 @@ public class ImGuiSDL3Renderer : IDisposable
     private void SetupRenderState()
     {
         SDL.SetRenderViewport(Renderer, 0);
-        SDL.SetRenderClipRect(Renderer, new SDL.Rect());
+        SDL.SetRenderClipRect(Renderer, IntPtr.Zero);
         SDL.SetRenderDrawBlendMode(Renderer, SDL.BlendMode.Blend);
     }
 
@@ -201,8 +201,14 @@ public class ImGuiSDL3Renderer : IDisposable
 
     private void RestoreRendererState(BackupSDLRendererState state)
     {
-        SDL.SetRenderViewport(Renderer, state.ViewportEnabled ? state.Viewport : new SDL.Rect());
-        SDL.SetRenderClipRect(Renderer, state.ClipEnabled ? state.ClipRect : new SDL.Rect());
+        if(state.ViewportEnabled)
+            SDL.SetRenderViewport(Renderer, state.Viewport);
+        else
+            SDL.SetRenderViewport(Renderer, IntPtr.Zero);
+        if(state.ClipEnabled)
+            SDL.SetRenderClipRect(Renderer, state.ClipRect);
+        else
+            SDL.SetRenderClipRect(Renderer, IntPtr.Zero);
     }
 
     private SDL.Rect CalculateClipRect(Vector4 clipRect, Vector2 clipOffset, Vector2 scale, int fbWidth, int fbHeight)

@@ -38,7 +38,7 @@ public class Application : IDisposable
             throw new Exception($"SDL_CreateRenderer failed: {SDL.GetError()}");
 
         // Enable VSync
-        //SDL.SetRenderVSync(Device, 1);
+        SDL.SetRenderVSync(Device, 1);
 
         // Setup screen clip rect
         SetupScreenClipRect();
@@ -67,6 +67,7 @@ public class Application : IDisposable
 
     public void Run()
     {
+        SDL.SetRenderDrawColor(Device, 25, 12, 20, 255);
         SetupTexture();
 
         IsRunning = true;
@@ -131,7 +132,6 @@ public class Application : IDisposable
 
     private void Render()
     {
-        SDL.SetRenderDrawColor(Device, 25, 12, 20, 255);
         SDL.RenderClear(Device);
 
         // Reset the clip rect to the screen size

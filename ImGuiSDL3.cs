@@ -261,7 +261,7 @@ public class ImGuiSDL3 : IDisposable
             case SDL.Keycode.RightBracket: return ImGuiKey.RightBracket;
             case SDL.Keycode.Grave: return ImGuiKey.GraveAccent;
             case SDL.Keycode.Capslock: return ImGuiKey.CapsLock;
-            case SDL.Keycode.ScrolLlock: return ImGuiKey.ScrollLock;
+            case SDL.Keycode.ScrollLock: return ImGuiKey.ScrollLock;
             case SDL.Keycode.NumLockClear: return ImGuiKey.NumLock;
             case SDL.Keycode.PrintScreen: return ImGuiKey.PrintScreen;
             case SDL.Keycode.Pause: return ImGuiKey.Pause;
