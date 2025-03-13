@@ -26,16 +26,10 @@ public class Application : IDisposable
         if(!SDL.Init(SDL.InitFlags.Video))
             throw new Exception($"SDL_Init failed: {SDL.GetError()}");
 
-        // Create window
+        // Create window & renderer
         var windowFlags = SDL.WindowFlags.Resizable;
-        Window = SDL.CreateWindow(name, width, height, windowFlags);
-        if(Window == IntPtr.Zero)
-            throw new Exception($"SDL_CreateWindow failed: {SDL.GetError()}");
-
-        // Create Renderer
-        Device = SDL.CreateRenderer(Window, null);
-        if(Device == IntPtr.Zero)
-            throw new Exception($"SDL_CreateRenderer failed: {SDL.GetError()}");
+        if(!SDL.CreateWindowAndRenderer(name, width, height, windowFlags, out Window, out Device))
+            throw new Exception($"SDL_CreateWindowAndRenderer failed: {SDL.GetError()}");
 
         // Enable VSync
         SDL.SetRenderVSync(Device, 1);
@@ -138,7 +132,7 @@ public class Application : IDisposable
         SDL.SetRenderClipRect(Device, _screenClipRect);
 
         // Render our texture
-        SDL.RenderTexture(Device, _texture, _srcRect, _dstRect);
+        SDL.RenderTexture(Device, _texture, ref _srcRect, ref _dstRect);
 
         // Render ImGui
         ImGui.Render();
